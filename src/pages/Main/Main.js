@@ -1,10 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Login from "./Login";
 
 const Main = () => {
   return (
     <div>
-      <Link to="/Signin">회원가입</Link>
+      <Login />
+      <Link to="/Signup">회원가입</Link>
     </div>
   );
 };
