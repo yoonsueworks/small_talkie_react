@@ -4,10 +4,10 @@ import Login from "./Login";
 
 const Main = () => {
   return (
-    <div>
+    <>
       <Login />
-      <Link to="/Signup">회원가입</Link>
-    </div>
+      <Link to="/signup">회원가입</Link>
+    </>
   );
 };
 
