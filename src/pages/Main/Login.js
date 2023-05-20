@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { validateEmail, validatePassword } from "../../utils/validationUtils";
 import { api } from "../../config";
 
 const Login = () => {
@@ -11,13 +12,9 @@ const Login = () => {
     setValues({ ...values, [name]: value });
   };
 
-  //email: a-z와 A-Z/숫자/+와 - 허용, @와 a-z 그리고 \. a-z 사용가능
-  //password: a-z와 A-Z/숫자/특수 문자(공백 제외) 허용, 2개이상 조합, 최소 10자 이상
   const { email, password } = values;
-  const emailRegEx = /[a-zA-Z0-9+_]+@[a-z]+\.+[a-z]/;
-  const passwordRegEx = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{7,})/;
-  const isEmailValid = emailRegEx.test(email);
-  const isPasswordValid = passwordRegEx.test(password);
+  const isEmailValid = validateEmail(email);
+  const isPasswordValid = validatePassword(password);
 
   const fetchUserInfo = () => {
     fetch(`${api.signin}`, {
