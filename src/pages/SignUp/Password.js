@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Input from "../../components/shared/Input";
 
 const Password = () => {
@@ -19,8 +19,18 @@ const Password = () => {
     type === "password"
       ? setpassword(e.target.value)
       : setpasswordCheck(e.target.value);
-    console.log(password, passwordCheck);
   };
+
+  const checkPassword = () => {
+    passwordCheck !== "" &&
+      (() => {
+        console.log(password === passwordCheck);
+      })();
+  };
+
+  useEffect(() => {
+    checkPassword();
+  }, [passwordCheck]);
 
   return (
     <div>
