@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from "react";
 import Input from "../../components/shared/Input";
+import { validatePassword } from "../../utils/validationUtils";
 
 const Password = () => {
   const [password, setpassword] = useState("");
   const [passwordCheck, setpasswordCheck] = useState("");
+  const [isPasswordChecked, setIsPasswordChecked] = useState(false);
+
+  const isPasswordValid = validatePassword(password);
 
   const inputs = [
     { id: 1, state: password, type: "password", placeholder: "비밀번호" },
@@ -22,14 +26,20 @@ const Password = () => {
   };
 
   const checkPassword = () => {
-    passwordCheck !== "" &&
-      (() => {
-        console.log(password === passwordCheck);
-      })();
+    setIsPasswordChecked(
+      isPasswordValid && passwordCheck !== "" && password === passwordCheck
+        ? true
+        : false
+    );
   };
+
+  const warnPasswordCheck = passwordCheck !== "" && passwordCheck !== password;
+
+  useEffect(() => {}, [password]);
 
   useEffect(() => {
     checkPassword();
+    // TODO: checkPassword() true일 경우 context -> signupdata set 실행
   }, [passwordCheck]);
 
   return (
@@ -45,6 +55,10 @@ const Password = () => {
           />
         );
       })}
+
+      {!isPasswordValid && <div>비밀번호1 유효성 검사 중</div>}
+      {!isPasswordChecked && <div>비밀번호2 유효성 검사 중</div>}
+      {warnPasswordCheck && <div>불일치</div>}
     </div>
   );
 };
